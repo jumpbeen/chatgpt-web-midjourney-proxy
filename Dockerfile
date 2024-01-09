@@ -1,5 +1,5 @@
 # build front-end
-FROM node:lts-alpine AS frontend
+FROM node:19 AS frontend
 
 RUN npm install pnpm -g
 
@@ -51,6 +51,8 @@ COPY --from=frontend /app/dist /app/public
 
 COPY --from=backend /app/build /app/build
 
-EXPOSE 80
+ENV PORT=3002
+
+EXPOSE ${PORT}
 
 CMD ["pnpm", "run", "prod"]
